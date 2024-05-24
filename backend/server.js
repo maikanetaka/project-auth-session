@@ -103,24 +103,23 @@ app.get("/", (req, res) => {
 
 // Sign-up
 app.post("/signup", async (req, res) => {
-  //  if (!username || !email || !password) {
-  //    return res.status(400).json({ message: "All fields are required." });
-  //  }
-  //  if (username.length < 5) {
-  //    return res
-  //      .status(400)
-  //      .json({ message: "Username must be at least 5 characters long." });
-  //  }
-  //  if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
-  //    return res.status(400).json({ message: "Invalid email format." });
-  //  }
-  //  if (password.length < 8) {
-  //    return res
-  //      .status(400)
-  //      .json({ message: "Password must be at least 8 characters long." });
-  //  }
   try {
     const { username, email, password } = req.body;
+
+    // 入力チェック
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+    if (username.length < 8) {
+      return res.status(400).json({ message: "Username must be at least 8 characters long." });
+    }
+    if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+      return res.status(400).json({ message: "Invalid email format." });
+    }
+    if (password.length < 8) {
+      return res.status(400).json({ message: "Password must be at least 8 characters long." });
+    }
+
     const user = new User({
       username,
       email,
@@ -131,11 +130,11 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.status(201).json({ id: user._id, accessToken: user.accessToken });
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Could not sign up.", error: error.errors });
+    console.error("Signup error:", error);
+    res.status(400).json({ message: "Could not sign up.", error: error.message });
   }
 });
+
 
 // Log-in
 app.post("/login", (req, res, next) => {
