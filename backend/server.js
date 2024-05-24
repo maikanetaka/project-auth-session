@@ -72,7 +72,7 @@ const authToken = async (req, res, next) => {
 // Middleware for initializing session
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.SECRET || "secret",
     resave: false,
     saveUninitialized: true,
     cookie: {
