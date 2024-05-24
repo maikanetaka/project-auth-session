@@ -7,7 +7,7 @@ export const Secrets = () => {
       try {
         const accessToken = JSON.parse(localStorage.getItem("accessToken"));
         const response = await fetch(
-          "https://project-auth-session.onrender.com/secrets",
+          `${import.meta.env.VITE_API_BASE_URL}/secrets`,
           {
             headers: {
               Authorization: `${accessToken}`,

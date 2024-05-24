@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { BackHome } from "./BackHome";
 
 export const SignupForm = () => {
@@ -9,20 +8,20 @@ export const SignupForm = () => {
     password: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
 
     try {
       const response = await fetch(
-        "hhttps://project-auth-session.onrender.com/signup",
+        `${import.meta.env.VITE_API_BASE_URL}/signup`,
         {
           method: "POST",
           headers: {

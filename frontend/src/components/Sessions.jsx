@@ -10,7 +10,7 @@ export const Sessions = () => {
     const fetchSessions = async () => {
       try {
         const response = await fetch(
-          "https://project-auth-session.onrender.com/sessions",
+          `${import.meta.env.VITE_API_BASE_URL}/sessions`,
           {
             credentials: "include", // Include the session cookie in the request to the
             mode: "cors", // Ensure CORS is enabled
