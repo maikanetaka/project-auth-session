@@ -19,11 +19,10 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = async e => {
-    console.log(loginData);
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://project-auth-lh3p.onrender.com/login",
+        "https://project-auth-session.onrender.com/login",
         {
           method: "POST",
           credentials: "include", // Include the session cookie in the request to the backend

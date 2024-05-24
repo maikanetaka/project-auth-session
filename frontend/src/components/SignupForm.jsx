@@ -22,12 +22,12 @@ export const SignupForm = () => {
 
     try {
       const response = await fetch(
-        "https://project-auth-lh3p.onrender.com/signup",
+        "hhttps://project-auth-session.onrender.com/signup",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            mode: 'cors', // Ensure CORS is enabled
+            mode: "cors", // Ensure CORS is enabled
           },
           body: JSON.stringify(formData),
         }

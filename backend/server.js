@@ -88,10 +88,10 @@ app.use(passport.session());
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://auth-session-based.netlify.app"],
     credentials: true,
     methods: ["GET", "POST"],
-  }) // Allow sending credentials from frontend to backend
+  })
 );
 app.use(express.json());
 

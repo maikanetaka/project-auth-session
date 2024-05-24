@@ -7,7 +7,7 @@ export const Secrets = () => {
       try {
         const accessToken = JSON.parse(localStorage.getItem("accessToken"));
         const response = await fetch(
-          "https://project-auth-lh3p.onrender.com/secrets",
+          "https://project-auth-session.onrender.com/secrets",
           {
             headers: {
               Authorization: `${accessToken}`,

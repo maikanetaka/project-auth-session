@@ -10,7 +10,7 @@ export const Sessions = () => {
     const fetchSessions = async () => {
       try {
         const response = await fetch(
-          "https://project-auth-lh3p.onrender.com/sessions",
+          "https://project-auth-session.onrender.com/sessions",
           {
             credentials: "include", // Include the session cookie in the request to the
             mode: "cors", // Ensure CORS is enabled
