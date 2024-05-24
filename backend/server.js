@@ -10,10 +10,12 @@ import { Strategy as LocalStrategy } from "passport-local";
 
 dotenv.config();
 const { Schema } = mongoose;
-const mongoUrl =
-  process.env.MONGO_URL || "mongodb://localhost/project-authentication";
-mongoose.connect(mongoUrl);
-mongoose.Promise = Promise;
+
+// MongoDB
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost:27017/project-auth-session";
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected to project-auth-session database.'))
+  .catch(err => console.log(err));
 
 const userSchema = new Schema({
   username: { type: String, unique: true, required: true, minLength: 8 },
@@ -86,7 +88,7 @@ app.use(passport.session());
 // Add middlewares to enable cors and json body parsing
 app.use(
   cors({
-    origin: "https://team-peace-auth.netlify.app/",
+    origin: "http://localhost:3000",
     credentials: true,
     methods: ["GET", "POST"],
   }) // Allow sending credentials from frontend to backend
