@@ -15,35 +15,33 @@ export const SignupForm = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log(formData);
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            mode: "cors", // Ensure CORS is enabled
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-      if (!response.ok) throw new Error("Signup failed");
-      console.log("successful", formData);
-    } catch (error) {
-      console.error("Error", error);
-    } finally {
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-      });
-    }
-  };
-
+  try {
+    const apiUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+    const response = await fetch(`${apiUrl}/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors", // Ensure CORS is enabled
+      body: JSON.stringify(formData),
+    });
+    if (!response.ok) throw new Error("Signup failed");
+    console.log("successful", formData);
+  } catch (error) {
+    console.error("Error", error);
+  } finally {
+    setFormData({
+      username: "",
+      email: "",
+      password: "",
+    });
+  }
+};
+  
   return (
     <>
       <BackHome />
