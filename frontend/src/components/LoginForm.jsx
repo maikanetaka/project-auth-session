@@ -18,34 +18,37 @@ export const LoginForm = () => {
     });
   };
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        "https://project-auth-session.onrender.com/login",
-        {
-          method: "POST",
-          credentials: "include", // Include the session cookie in the request to the backend
-          mode: "cors", // Ensure CORS is enabled
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(loginData),
-        }
-      );
-      if (!response.ok) throw new Error("Failed to login");
-      console.log("succesful", response);
-
-      navigate("/sessions");
-    } catch (error) {
-      console.error("Error", error);
-    } finally {
-      setLoginData({
-        username: "",
-        password: "",
-      });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch(
+      "https://project-auth-session.onrender.com/login",
+      {
+        method: "POST",
+        credentials: "include",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      }
+    );
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to login");
     }
-  };
+    console.log("successful", response);
+    navigate("/sessions");
+  } catch (error) {
+    console.error("Error:", error);
+    alert(`Login failed: ${error.message}`);
+  } finally {
+    setLoginData({
+      username: "",
+      password: "",
+    });
+  }
+};
 
   return (
     <>

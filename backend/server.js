@@ -140,12 +140,20 @@ app.post("/signup", async (req, res) => {
 // Log-in
 app.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user) => {
-    if (err) return next(err);
-    if (!user) return res.status(401).end();
+    if (err) {
+      console.error("Authentication error:", err);
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({ message: "Authentication failed" });
+    }
 
-    req.logIn(user, err => {
-      if (err) return next(err);
-      return res.status(200).end();
+    req.logIn(user, (err) => {
+      if (err) {
+        console.error("Login error:", err);
+        return next(err);
+      }
+      return res.status(200).json({ message: "Login successful" });
     });
   })(req, res, next);
 });
